@@ -4,8 +4,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Asker asker = new Asker();
-		asker.readFile();
+//		Asker asker = new Asker();
+		
+		UserInterface ui = new UserInterface();
+
 
 	}
 
