@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Asker {
@@ -55,13 +56,28 @@ public class Asker {
 	
 	
 	private void makeListOfQuestions () {
+//		Creates an ArrayList of the questions to be able to remove correctly answered questions.
 		
 		for (Map.Entry<String, String> entry : questionsAndAnswers.entrySet()) {
-			System.out.println(entry.getKey());
 			questions.add(entry.getKey());
 
 		}
+
+	}
+	
+	public String getQuestion() {
 		
+		if (!questions.isEmpty()) {
+			Random random = new Random();
+			return questions.get(random.nextInt(questions.size()));
+		}
+		
+		return null;
+	}
+	
+	public String getAnswer (String key) {
+		
+		return questionsAndAnswers.get(key);
 		
 	}
 	

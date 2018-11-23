@@ -1,2 +1,3 @@
-Who are you : Johan
-What are dancing : The pigs are dancing
+Vad är första normalformen(1NF):The Key - Det måste finnas en primärnyckel. Endat atomära värden och inga upprepade fält
+Vad kallas skiktet närmst användaren i Tre-schema arkitekturen:Det översta skiktet.
+Hur många scheman finns det:Tre
