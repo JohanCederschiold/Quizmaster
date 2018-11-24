@@ -1,3 +1,15 @@
-Vad är första normalformen(1NF):The Key - Det måste finnas en primärnyckel. Endat atomära värden och inga upprepade fält
+Vad innebär första normalformen(1NF):The Key - Det måste finnas en primärnyckel. Endat atomära värden och inga upprepade fält
+Vad innebär andra normalformen(2NF): The whole key - 1NF uppfylld. Det får inte finnas attribut (kolumner) som inte beror på hela primärnyckeln.
+Vad innebär tredje normalformen(3NF):Nothing but the key - 2NF uppfylld. Alla attribut måste bero på primärnyckeln.
 Vad kallas skiktet närmst användaren i Tre-schema arkitekturen:Det översta skiktet.
 Hur många scheman finns det:Tre
+Vad betyder DDL:Data Definition Language
+Vilka kommandon ingår i DDL:Create, Alter, Drop. De följs normalt av ett objekt (ex table)
+Vad betyder DML:Data Manipulation Language
+Vilka kommandon ingår i DML:Select, Insert, Update, Delete (CRUD kommandon).
+Vad betyder CRUD:Create, Update, Read and Delete
+Vad betyder DCL:Data Control Language
+Vilka kommandon ingår i DCL:Grant, Deny, Revoke
+Vad innebär Entity integritet:Att förhindra förekomsten av dublettrader. Primärnyckel.
+Vad innebär Domänintegritet:Att förhindra felaktiga värdesformat genom variabeltyper och att inte tillåta null. 
+Vad innebär referensintegritet:Att Foreign keys används för att förhindra att kritiska värden saknas i andra tabeller. 

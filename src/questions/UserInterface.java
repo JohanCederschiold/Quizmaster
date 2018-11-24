@@ -20,7 +20,7 @@ public class UserInterface extends JFrame {
 	private JPanel panelForQuestion;
 	private JLabel lblQuestion;
 	private JLabel lblAnswer;
-	private JButton btnNext;
+	private JButton btnStart;
 	private JButton btnCorrect;
 	private JButton btnWrong;
 	private JButton btnReveal;
@@ -44,7 +44,7 @@ public class UserInterface extends JFrame {
 		
 //		Questiona and answerpanel. 
 		panelForQuestion.setLayout(new GridLayout(2 , 1));
-		lblQuestion = new JLabel("Här kommer frågorna. Starta med Next");
+		lblQuestion = new JLabel("Här kommer frågorna. Starta med \"start\"!");
 		lblQuestion.setBorder(new EtchedBorder());
 		lblQuestion.setFont(font);
 		lblAnswer = new JLabel (secretAnswer);
@@ -55,21 +55,21 @@ public class UserInterface extends JFrame {
 
 //		Button Panel layout
 		panelForButtons.setLayout(new FlowLayout());
+		btnStart = new JButton("Start");
 		btnReveal = new JButton("Reveal");
-		btnNext = new JButton("Next");
 		btnCorrect = new JButton("Correct");
 		btnWrong = new JButton("Wrong");
 		
 		btnExit = new JButton("Exit");
+		panelForButtons.add(btnStart);
 		panelForButtons.add(btnReveal);
-		panelForButtons.add(btnNext);
 		panelForButtons.add(btnCorrect);
 		panelForButtons.add(btnWrong);
 		panelForButtons.add(btnExit);
 		
 //		Addactions
 		btnReveal.addActionListener(l);
-		btnNext.addActionListener(l);
+		btnStart.addActionListener(l);
 		btnCorrect.addActionListener(l);
 		btnWrong.addActionListener(l);
 		btnExit.addActionListener(l);
@@ -87,7 +87,9 @@ public class UserInterface extends JFrame {
 			
 			if (e.getSource() == btnReveal) {
 				lblAnswer.setText(correspondingAnswer);
-			} else if (e.getSource() == btnNext) {
+				btnCorrect.setEnabled(true);
+				btnWrong.setEnabled(true);
+			} else if (e.getSource() == btnStart) {
 				getNewQuestion();
 			} else if (e.getSource() == btnCorrect) {
 				asker.removeQuestion(lblQuestion.getText());
@@ -105,11 +107,19 @@ public class UserInterface extends JFrame {
 	
 	
 	public void getNewQuestion () {
+//		Method to get a new question (and answer).
 		String question = asker.getQuestion();
-		correspondingAnswer = asker.getAnswer(question);
-		System.out.println(correspondingAnswer);
-		lblQuestion.setText(question);
-		lblAnswer.setText(secretAnswer);
+		btnCorrect.setEnabled(false);
+		btnWrong.setEnabled(false);
+		
+		if (question != null) { //No more questions
+			correspondingAnswer = asker.getAnswer(question);
+			lblQuestion.setText(question);
+		} else {
+			lblQuestion.setText("Frågorna är slut.");
+		}
+		lblAnswer.setText(secretAnswer); //To signify the answer is hidden.
+
 		
 	}
 	
