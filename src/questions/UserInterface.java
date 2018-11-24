@@ -21,9 +21,11 @@ public class UserInterface extends JFrame {
 	private JLabel lblQuestion;
 	private JLabel lblAnswer;
 	private JButton btnNext;
+	private JButton btnCorrect;
+	private JButton btnWrong;
 	private JButton btnReveal;
 	private JButton btnExit;
-	private Font font = new Font("Arial Black", Font.PLAIN, 20 );
+	private Font font = new Font("Arial Black", Font.PLAIN, 16 );
 	private String secretAnswer = "----------------------------------------------";
 	private String correspondingAnswer;
 	
@@ -55,14 +57,21 @@ public class UserInterface extends JFrame {
 		panelForButtons.setLayout(new FlowLayout());
 		btnReveal = new JButton("Reveal");
 		btnNext = new JButton("Next");
+		btnCorrect = new JButton("Correct");
+		btnWrong = new JButton("Wrong");
+		
 		btnExit = new JButton("Exit");
 		panelForButtons.add(btnReveal);
 		panelForButtons.add(btnNext);
+		panelForButtons.add(btnCorrect);
+		panelForButtons.add(btnWrong);
 		panelForButtons.add(btnExit);
 		
 //		Addactions
 		btnReveal.addActionListener(l);
 		btnNext.addActionListener(l);
+		btnCorrect.addActionListener(l);
+		btnWrong.addActionListener(l);
 		btnExit.addActionListener(l);
 		
 		pack();
@@ -79,6 +88,11 @@ public class UserInterface extends JFrame {
 			if (e.getSource() == btnReveal) {
 				lblAnswer.setText(correspondingAnswer);
 			} else if (e.getSource() == btnNext) {
+				getNewQuestion();
+			} else if (e.getSource() == btnCorrect) {
+				asker.removeQuestion(lblQuestion.getText());
+				getNewQuestion();
+			} else if (e.getSource() == btnWrong) {
 				getNewQuestion();
 			} else if (e.getSource() == btnExit) {
 				System.exit(0);
@@ -98,6 +112,8 @@ public class UserInterface extends JFrame {
 		lblAnswer.setText(secretAnswer);
 		
 	}
+	
+
 	
 
 }

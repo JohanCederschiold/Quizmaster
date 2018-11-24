@@ -81,5 +81,11 @@ public class Asker {
 		
 	}
 	
+	public void removeQuestion (String question) {
+		
+		questions.remove(question);
+		
+	}
+	
 
 }
