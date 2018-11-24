@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +21,7 @@ public class UserInterface extends JFrame {
 	private JPanel panelForQuestion;
 	private JLabel lblQuestion;
 	private JLabel lblAnswer;
+	private JComboBox jcbChoose;
 	private JButton btnStart;
 	private JButton btnCorrect;
 	private JButton btnWrong;
@@ -28,11 +30,13 @@ public class UserInterface extends JFrame {
 	private Font font = new Font("Arial Black", Font.PLAIN, 16 );
 	private String secretAnswer = "----------------------------------------------";
 	private String correspondingAnswer;
+	private String [] options = {"Databaser", "Git"};
 	
 	public UserInterface () {
 		
+		setSize(new Dimension(700, 100));
 		JPanel mainPanel = new JPanel();
-		mainPanel.setPreferredSize(new Dimension(500, 100));
+		mainPanel.setPreferredSize(new Dimension(700, 100));
 		
 		mainPanel.setLayout(new GridLayout(2, 1));
 		add(mainPanel);
@@ -41,8 +45,9 @@ public class UserInterface extends JFrame {
 		mainPanel.add(panelForButtons = new JPanel());
 		
 		asker = new Asker();
+		asker.prepareQuestions(0);
 		
-//		Questiona and answerpanel. 
+//		Question and answerpanel. 
 		panelForQuestion.setLayout(new GridLayout(2 , 1));
 		lblQuestion = new JLabel("Här kommer frågorna. Starta med \"start\"!");
 		lblQuestion.setBorder(new EtchedBorder());
@@ -61,6 +66,7 @@ public class UserInterface extends JFrame {
 		btnWrong = new JButton("Wrong");
 		
 		btnExit = new JButton("Exit");
+		panelForButtons.add(jcbChoose = new JComboBox(options));
 		panelForButtons.add(btnStart);
 		panelForButtons.add(btnReveal);
 		panelForButtons.add(btnCorrect);
@@ -68,6 +74,7 @@ public class UserInterface extends JFrame {
 		panelForButtons.add(btnExit);
 		
 //		Addactions
+		jcbChoose.addActionListener(l);
 		btnReveal.addActionListener(l);
 		btnStart.addActionListener(l);
 		btnCorrect.addActionListener(l);
@@ -98,7 +105,10 @@ public class UserInterface extends JFrame {
 				getNewQuestion();
 			} else if (e.getSource() == btnExit) {
 				System.exit(0);
+			} else if (e.getSource() == jcbChoose) {
+				asker.prepareQuestions(jcbChoose.getSelectedIndex());
 			}
+			
 			
 			
 		}

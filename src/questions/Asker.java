@@ -13,27 +13,36 @@ public class Asker {
 	
 	private Map<String, String> questionsAndAnswers;
 	private List <String> questions;
-	private String filePath = "src\\questions\\qanda.txt";
+	private String filePath = "src\\questions\\";
+	private String [] file = {"qanda.txt", "gitqa.txt"};
+
 	
 //	Konstruktor
 	public Asker() {
 		
+
+			
+	}
+	
+	
+	public void prepareQuestions (int index) {
+		
 		questionsAndAnswers = new HashMap<>();
 		questions = new ArrayList<>();
-		readFile();
+		readFile(index);
 		makeListOfQuestions();
-		
 		
 	}
 	
-	private void readFile() {
+	
+	private void readFile(int indexNo) {
 		
 //		The method read questions and answers from a textfile
 		
 		Scanner fileScanner = null;
 		
 		try {
-			fileScanner = new Scanner(new File(filePath));
+			fileScanner = new Scanner(new File(filePath + file[indexNo]));
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 			return;
@@ -48,8 +57,7 @@ public class Asker {
 			
 			
 		}
-		
-//		System.out.println(questionsAndAnswers.get("What are dancing "));
+		fileScanner.close();
 		finder.close();
 		
 	}

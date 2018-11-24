@@ -1,0 +1,3 @@
+Vilket kommando visar skillnaden mellan modified och senast commited:git diff
+Vilket kommando visar skillnaden mellan stagade filer och senaste commit:git diff --cached (eller --staged)
+Vad är en topic branch:En branch som används för att testa en specifik function eller feature
