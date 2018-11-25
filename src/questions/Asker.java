@@ -15,6 +15,10 @@ public class Asker {
 	private List <String> questions;
 	private String filePath = "src\\questions\\";
 	private String [] file = {"qanda.txt", "gitqa.txt"};
+	
+//	Counters
+	private int questionsAsked = 0;
+	private int correctAnswers = 0;
 
 	
 //	Konstruktor
@@ -76,6 +80,8 @@ public class Asker {
 	
 	public String getQuestion() {
 		
+		questionsAsked++; //Increments the counter of questions asked
+		
 		if (!questions.isEmpty()) {
 			Random random = new Random();
 			return questions.get(random.nextInt(questions.size()));
@@ -92,8 +98,26 @@ public class Asker {
 	
 	public void removeQuestion (String question) {
 		
+		correctAnswers++; //Questions are only removed if answered correctly
+		
 		questions.remove(question);
 		
+	}
+	
+	public int getQuestionsAsked () {
+		return questionsAsked;
+	}
+	
+	public int getCorrectAnswers () {
+		return correctAnswers;
+	}
+	
+	public void resetQuestionsAsked () {
+		questionsAsked = 0;
+	}
+	
+	public void resetCorrectAnswers () {
+		correctAnswers = 0;
 	}
 	
 

@@ -21,6 +21,7 @@ public class UserInterface extends JFrame {
 	private JPanel panelForQuestion;
 	private JLabel lblQuestion;
 	private JLabel lblAnswer;
+	private JLabel lblStats;
 	private JComboBox jcbChoose;
 	private JButton btnStart;
 	private JButton btnCorrect;
@@ -60,6 +61,8 @@ public class UserInterface extends JFrame {
 
 //		Button Panel layout
 		panelForButtons.setLayout(new FlowLayout());
+		lblStats = new JLabel(String.format("%d / %d", asker.getCorrectAnswers(), asker.getQuestionsAsked()));
+		lblStats.setFont(font);
 		btnStart = new JButton("Start");
 		btnReveal = new JButton("Reveal");
 		btnCorrect = new JButton("Correct");
@@ -71,6 +74,7 @@ public class UserInterface extends JFrame {
 		panelForButtons.add(btnReveal);
 		panelForButtons.add(btnCorrect);
 		panelForButtons.add(btnWrong);
+		panelForButtons.add(lblStats);
 		panelForButtons.add(btnExit);
 		
 //		Addactions
@@ -97,11 +101,15 @@ public class UserInterface extends JFrame {
 				btnCorrect.setEnabled(true);
 				btnWrong.setEnabled(true);
 			} else if (e.getSource() == btnStart) {
+				asker.resetCorrectAnswers();
+				asker.resetQuestionsAsked();
 				getNewQuestion();
 			} else if (e.getSource() == btnCorrect) {
 				asker.removeQuestion(lblQuestion.getText());
+				upDateScore();
 				getNewQuestion();
 			} else if (e.getSource() == btnWrong) {
+				upDateScore();
 				getNewQuestion();
 			} else if (e.getSource() == btnExit) {
 				System.exit(0);
@@ -131,6 +139,10 @@ public class UserInterface extends JFrame {
 		lblAnswer.setText(secretAnswer); //To signify the answer is hidden.
 
 		
+	}
+	
+	public void upDateScore() {
+		lblStats.setText(String.format("%d / %d", asker.getCorrectAnswers(), asker.getQuestionsAsked()));
 	}
 	
 

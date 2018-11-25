@@ -14,3 +14,29 @@ Hur byter man branch?:git chekout <namnpåbranch>
 Hur skapar man OCH byter till den nya branchen direkt?:git checkout -b <namnpåbranch>
 Hur kan man se var HEAD pekar?:med git log --oneline --decorate
 Hur gör man en commit utan att gå via texteditor?:git commit -m <commit_message>
+Vad är skillnaden mellan en CVCS och ett DVCS?:Distributed Vesrsion Control Systems speglar sina repositories vilket ger snabbhet och redundans
+Vad är Delta-Based version control?:Information en betraktas som en samling filer och de förändringar som gjorts på dessa filer.
+Nämn några av Gits primära egenskaper?:Primärt lokal lagring, Checksums (SHA-1), Adderas (i princip) endast data.
+Vilka är gits tre huvudstadier?:Modified, Staged och Commited. 
+Vad är ett annat namn för staging area?:Index.
+Exemplifiera ett normat arbetsflöde för Git(lokalt)?:Modifiera filerna -> Välj filerna som skall med i nästa commit -> Gör commit för permanent snapshot. 
+Hur kan man kontrollera vilket user namn man har registerat?:git config user.name
+Hur frågar man efter hjälp i git?:git help <kommando> eller git <commando> -h (för en kortare version).
+På vilka två sätt kan man får ett repository?:Genom att själv initiera ett (git init) eller genom att ladda ner(clone) ett.
+Vad är en tracked file?:Det är en fil som var med i senaste commiten. De kan vara modified, unmodified eller staged. 
+Vad är en untracked file?: Det är en fil som git inte bryr sig om eller känner till. 
+Vad är det enklaste sättet att kolla tillståndet på dina filer?:git status eller git status -s (för kortare version).
+Hur får man git att börja tracka en fil?:Genom att staga filen med git add <filnamn>
+Vad händer om man gör ändringar i en stagead fil efter att den är staged men innan man gjort en commit?:Om man kör git status kommer filen att stå både som staged och som modified.
+Vad är globpatterns?: Det är förenklade regular expressions
+Hur får man git att ignorera filer?:Genom att skapa en .gitignore fil som innehåller globpatterns eller filnamn som den skall ignorera.
+Hur kan man stagea alla tracked files och commit med en en rad?:git commit -a -m <commit_message>
+Vad gör git rm kommandot?:Det tar bort filen från working directory OCH meddelar git att den inte skall trackas mer.
+Hur kan man få en git att sluta tracka en fil (men behålla filen)?:git rm --cached <filnamn>
+Hur byter du namn på en trackad fil i git?:Med git mv <gammalt_namn> <nytt_namn>
+Hur ser man enklast sin commit history?:Med git log
+Hur kan man se de faktiska ändringarna som gjort genom de olika commitsen?:Med git commit -p (--patch).
+Hur kan man se sin commit history med en commit per rad?:git commit --oneline
+Med vilket kommando kan man formatera utskrifterna från commit historiken?:git log --pretty
+Med vilket kommando kan man se sin commithistrik med grafiska grenar (branches)?:git log --graph
+Vad gör -p eller --patch växeln på log kommandot?: Visar de faktiska kondändringarna från commit till commit.
