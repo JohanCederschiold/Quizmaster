@@ -1,3 +1,16 @@
-Vilket kommando visar skillnaden mellan modified och senast commited:git diff
-Vilket kommando visar skillnaden mellan stagade filer och senaste commit:git diff --cached (eller --staged)
-Vad är en topic branch:En branch som används för att testa en specifik function eller feature
+Vilket kommando visar skillnaden mellan modified och senast commited?:git diff
+Vilket kommando visar skillnaden mellan stagade filer och senaste commit?:git diff --cached (eller --staged)
+Vad är en topic branch?:En branch som används för att testa en specifik function eller feature
+Hur kan man visa en lista på de remotes man har?:git ls-remote [remote] -> om man vill välja remote.
+Hur kan man se vilken remote man är på nu?:git remote show
+Hur lagrar git datan om förändringar?:Som en serie snapshots.
+Vad kallar Git versionerna av filerna som lagras i repositoriet?:Blobs
+Vad kallas den del i repositoryt som håller listar innehållet och namnen på filerna(vilken Blob som är vilken fil)?:Den kallas för Tree.
+Vad kallas föregående commit?:Parent
+Vad är default namnet för huvudbranchen i GIT?:Master
+Hur skapar man en ny branch?:git branch <namnpåbranch>
+Hur håller Git reda på vilken branch man f.n. arbetar i?:Den sätter en pekare (HEAD) på den aktuella branchen.
+Hur byter man branch?:git chekout <namnpåbranch>
+Hur skapar man OCH byter till den nya branchen direkt?:git checkout -b <namnpåbranch>
+Hur kan man se var HEAD pekar?:med git log --oneline --decorate
+Hur gör man en commit utan att gå via texteditor?:git commit -m <commit_message>

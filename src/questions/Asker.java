@@ -38,7 +38,7 @@ public class Asker {
 	private void readFile(int indexNo) {
 		
 //		The method read questions and answers from a textfile
-		
+//		int counter=0;
 		Scanner fileScanner = null;
 		
 		try {
@@ -53,6 +53,7 @@ public class Asker {
 		while (fileScanner.hasNextLine()) {
 			String row = fileScanner.nextLine();
 			finder = new Scanner(row).useDelimiter(":");
+//			System.out.println(++counter); //Används vi inläsningsfel
 			questionsAndAnswers.put(finder.next(), finder.next());
 			
 			
