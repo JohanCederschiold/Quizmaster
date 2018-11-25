@@ -46,7 +46,7 @@ public class Asker {
 		Scanner fileScanner = null;
 		
 		try {
-			fileScanner = new Scanner(new File(filePath + file[indexNo]));
+			fileScanner = new Scanner(new File(filePath + file[indexNo]), "UTF-8");
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 			return;
