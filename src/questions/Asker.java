@@ -13,7 +13,7 @@ public class Asker {
 	
 	private Map<String, String> questionsAndAnswers;
 	private List <String> questions;
-	private String filePath = "src\\questions\\";
+	private String filePath = "C:\\Users\\ceder\\Documents\\Yrgo filer\\Programfiler\\Questions\\";
 	private String [] file = {"qanda.txt", "gitqa.txt"};
 	
 //	Counters
