@@ -101,6 +101,7 @@ public class UserInterface extends JFrame {
 				btnCorrect.setEnabled(true);
 				btnWrong.setEnabled(true);
 			} else if (e.getSource() == btnStart) {
+				btnStart.setEnabled(false);
 				asker.resetCorrectAnswers();
 				asker.resetQuestionsAsked();
 				getNewQuestion();
@@ -114,6 +115,7 @@ public class UserInterface extends JFrame {
 			} else if (e.getSource() == btnExit) {
 				System.exit(0);
 			} else if (e.getSource() == jcbChoose) {
+				btnStart.setEnabled(true);
 				asker.prepareQuestions(jcbChoose.getSelectedIndex());
 			}
 			

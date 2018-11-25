@@ -24,7 +24,7 @@ Hur kan man kontrollera vilket user namn man har registerat?:git config user.nam
 Hur frågar man efter hjälp i git?:git help <kommando> eller git <commando> -h (för en kortare version).
 På vilka två sätt kan man får ett repository?:Genom att själv initiera ett (git init) eller genom att ladda ner(clone) ett.
 Vad är en tracked file?:Det är en fil som var med i senaste commiten. De kan vara modified, unmodified eller staged. 
-Vad är en untracked file?: Det är en fil som git inte bryr sig om eller känner till. 
+Vad är en untracked file?:Det är en fil som git inte bryr sig om eller känner till. 
 Vad är det enklaste sättet att kolla tillståndet på dina filer?:git status eller git status -s (för kortare version).
 Hur får man git att börja tracka en fil?:Genom att staga filen med git add <filnamn>
 Vad händer om man gör ändringar i en stagead fil efter att den är staged men innan man gjort en commit?:Om man kör git status kommer filen att stå både som staged och som modified.
@@ -32,11 +32,33 @@ Vad är globpatterns?: Det är förenklade regular expressions
 Hur får man git att ignorera filer?:Genom att skapa en .gitignore fil som innehåller globpatterns eller filnamn som den skall ignorera.
 Hur kan man stagea alla tracked files och commit med en en rad?:git commit -a -m <commit_message>
 Vad gör git rm kommandot?:Det tar bort filen från working directory OCH meddelar git att den inte skall trackas mer.
-Hur kan man få en git att sluta tracka en fil (men behålla filen)?:git rm --cached <filnamn>
+Hur kan man få en git att sluta tracka en fil (men behålla filen)?:git rm --cached <filnamn> och om det är en folder git rm --cached -r <foldernamn>
 Hur byter du namn på en trackad fil i git?:Med git mv <gammalt_namn> <nytt_namn>
 Hur ser man enklast sin commit history?:Med git log
-Hur kan man se de faktiska ändringarna som gjort genom de olika commitsen?:Med git commit -p (--patch).
+Hur kan man se de faktiska ändringarna som gjort genom de olika commitsen?:Med git log -p (--patch).
 Hur kan man se sin commit history med en commit per rad?:git commit --oneline
-Med vilket kommando kan man formatera utskrifterna från commit historiken?:git log --pretty
+Med vilket kommando kan man formatera utskrifterna från commit historiken?:git log --pretty (kan användas git log --pretty=format<formatregler>
 Med vilket kommando kan man se sin commithistrik med grafiska grenar (branches)?:git log --graph
-Vad gör -p eller --patch växeln på log kommandot?: Visar de faktiska kondändringarna från commit till commit.
+Vad gör -p eller --patch växeln på log kommandot?:Visar de faktiska kondändringarna från commit till commit.
+Hur kan man se kort statistik om alla (eller vissa) commits?: Med git log --stat.
+Hur kan man begränsa antalet utskrifter med git log?: Men antal git log -2 (två senaste), med --since, --after, --until, --before eller med via strängar eller författare.
+Hur gör jag för att endast se commits från de senaste två veckorna?:Med git log --since=2.weeks
+Vilket kommando använder jag för att korrigera en gjort commit?:git commit --amend (körs efter ändringen man vill göra).
+Hur ser arbetsflödet ut för att ändra en felaktig commit?:Felaktig commit -> git add (exempelvis) Forgottenfile -> git commit --amend
+Hur kan man ångra att man stageat en fil om man råkat göra detta för tidigt?:Jag kan ta bort den från staging area med git reset HEAD <filnamn>
+Hur gör man för att återställa en fil till skicket den hade vid senaste commit?:git checkout -- <filnamn>
+Vad är origin?:Det är default namnet som git ger till en godtycklig remote. 
+Hur kan jag få git att visa med de URL:er som är förknippade med mina remotes?:git remote -v 
+Hur lägger man till en ny remote?:Med git remote add<shortname> <url>.
+Vad gör git fetch <remote>?:Det laddar ner ändringar från servern utan att merga dem med min version.
+Vad gör git pull?: Kommandot hämtar OCH mergar med min version (om möjligt). Det motsvara alltså git fetch<remote> och git merge<remote>.
+Hur skickar jag mina förändringar till en remote?:Med git push eller git push <remote><branch>
+Hur kan jag se tags relaterade till mina commits?:Med git tag eller git tag -l (--list).
+Vilka två tagtyper kan förekomma?:Lightweight och annotated?
+Hur skapar man en annotated tag?:git tag -a <namn> -m <message>
+Hur skapar man en lightweight tag?: git tag <namn> OBS inga andra växlar.
+Hur gör jag för att knyta en tag till en commit i efterhand?:git tag -a <namn> <början av SHA-1>
+Hur tar jag bort en tag?:git tag -d <namn>
+Hur överför jag mina tags till en remote server?: git push origin <tagname>
+Vad är faran med att vara en detached head state?:Att eventuella commits som görs i stadie sedan endat är nåbara via SHA-1 värdet. Detta kan undvikas genom att skapa en branch
+Hur kan man skapa ett alias för att kommando?:Med git config --global.alias.<kortkommando> <ersatt_kommando>
