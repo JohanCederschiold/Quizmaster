@@ -14,7 +14,8 @@ public class Asker {
 	private Map<String, String> questionsAndAnswers;
 	private List <String> questions;
 	private String filePath = "C:\\Users\\ceder\\Documents\\Yrgo filer\\Programfiler\\Questions\\";
-	private String [] file = {"qanda.txt", "gitqa.txt"};
+	private String [] file;
+	private String [] options;
 	
 //	Counters
 	private int questionsAsked = 0;
@@ -24,7 +25,7 @@ public class Asker {
 //	Konstruktor
 	public Asker() {
 		
-
+		createMenu();
 			
 	}
 	
@@ -38,11 +39,47 @@ public class Asker {
 		
 	}
 	
+	public void createMenu () {
+//		This method reads the text file and creates menu to allow for user to add subject outside IDE.
+		Scanner fileScanner = null;
+		List<String> tempMenu = new ArrayList<>(); 		//intermediary storage of files
+		List<String> tempFilename = new ArrayList<>();	//intermediary storage of files
+		
+		
+		try {
+			fileScanner = new Scanner(new File(filePath + "menuoptions.txt"), "UTF-8");
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+			return;
+		}
+		
+		Scanner finder = null;
+		 
+		while (fileScanner.hasNextLine()) {
+			String row = fileScanner.nextLine();
+			finder = new Scanner(row).useDelimiter(":");
+			tempMenu.add(finder.next());
+			tempFilename.add(finder.next());	
+		}
+		fileScanner.close();
+		finder.close();
+		
+		file = new String [tempMenu.size()]; 
+		options = new String [tempFilename.size()];
+		
+		for (int i = 0 ; i < tempMenu.size(); i++ ) {
+			options [i] = tempMenu.get(i);
+			file [i] = tempFilename.get(i);
+		}
+		
+		
+	}
+	
 	
 	private void readFile(int indexNo) {
 		
 //		The method read questions and answers from a textfile
-		int counter=0;
+//		int counter=0;
 		Scanner fileScanner = null;
 		
 		try {
@@ -57,7 +94,7 @@ public class Asker {
 		while (fileScanner.hasNextLine()) {
 			String row = fileScanner.nextLine();
 			finder = new Scanner(row).useDelimiter(":");
-			System.out.println(++counter); //Används vi inläsningsfel
+//			System.out.println(++counter); //Används vi inläsningsfel
 			questionsAndAnswers.put(finder.next(), finder.next());
 			
 			
@@ -118,6 +155,10 @@ public class Asker {
 	
 	public void resetCorrectAnswers () {
 		correctAnswers = 0;
+	}
+	
+	public String [] getOptions () {
+		return options;
 	}
 	
 

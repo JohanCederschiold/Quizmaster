@@ -31,7 +31,7 @@ public class UserInterface extends JFrame {
 	private Font font = new Font("Arial Black", Font.PLAIN, 16 );
 	private String secretAnswer = "----------------------------------------------";
 	private String correspondingAnswer;
-	private String [] options = {"Databaser", "Git"};
+//	private String [] options = {"Databaser", "Git"};
 	
 	public UserInterface () {
 		
@@ -69,7 +69,7 @@ public class UserInterface extends JFrame {
 		btnWrong = new JButton("Wrong");
 		
 		btnExit = new JButton("Exit");
-		panelForButtons.add(jcbChoose = new JComboBox(options));
+		panelForButtons.add(jcbChoose = new JComboBox(asker.getOptions()));
 		panelForButtons.add(btnStart);
 		panelForButtons.add(btnReveal); btnReveal.setEnabled(false);
 		panelForButtons.add(btnCorrect);
