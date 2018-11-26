@@ -71,7 +71,7 @@ public class UserInterface extends JFrame {
 		btnExit = new JButton("Exit");
 		panelForButtons.add(jcbChoose = new JComboBox(options));
 		panelForButtons.add(btnStart);
-		panelForButtons.add(btnReveal);
+		panelForButtons.add(btnReveal); btnReveal.setEnabled(false);
 		panelForButtons.add(btnCorrect);
 		panelForButtons.add(btnWrong);
 		panelForButtons.add(lblStats);
@@ -100,6 +100,7 @@ public class UserInterface extends JFrame {
 				lblAnswer.setText(correspondingAnswer);
 				btnCorrect.setEnabled(true);
 				btnWrong.setEnabled(true);
+				btnReveal.setEnabled(false);
 			} else if (e.getSource() == btnStart) {
 				btnStart.setEnabled(false);
 				asker.resetCorrectAnswers();
@@ -129,6 +130,7 @@ public class UserInterface extends JFrame {
 	public void getNewQuestion () {
 //		Method to get a new question (and answer).
 		String question = asker.getQuestion();
+		btnReveal.setEnabled(true);
 		btnCorrect.setEnabled(false);
 		btnWrong.setEnabled(false);
 		
