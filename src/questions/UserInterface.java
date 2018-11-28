@@ -1,155 +1,197 @@
 package questions;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
+import javax.swing.JTextArea;
 
 public class UserInterface extends JFrame {
 	
+	/* 	This is an experimental Class under the branch alternativeUI
+	 * 
+	 */
+	
 	private Asker asker;
-	private JPanel panelForButtons;
-	private JPanel panelForQuestion;
-	private JLabel lblQuestion;
-	private JLabel lblAnswer;
-	private JLabel lblStats;
-	private JComboBox jcbChoose;
-	private JButton btnStart;
+	
+//	Components. 
+	private JLabel lblCorrect;
+	private JLabel lblAsked;
+	private JTextArea txaQandA;
+	private JButton btnReveal;
 	private JButton btnCorrect;
 	private JButton btnWrong;
-	private JButton btnReveal;
 	private JButton btnExit;
-	private Font font = new Font("Arial Black", Font.PLAIN, 16 );
-	private String secretAnswer = "----------------------------------------------";
-	private String correspondingAnswer;
-//	private String [] options = {"Databaser", "Git"};
+	private JComboBox jcbChoose;
 	
+//	Panels
+	private JPanel panelOne;
+	private JPanel panelTwo;
+	private JPanel panelThree;
+	
+//	Fonts
+	private Font fontS = new Font("Arial Bold", Font.PLAIN, 16);
+	private Font fontL = new Font("Arial Bold", Font.PLAIN, 20);
+	
+	
+//	Constructor
 	public UserInterface () {
 		
-		setSize(new Dimension(700, 100));
-		JPanel mainPanel = new JPanel();
-		mainPanel.setPreferredSize(new Dimension(700, 100));
-		
-		mainPanel.setLayout(new GridLayout(2, 1));
-		add(mainPanel);
-		
-		mainPanel.add(panelForQuestion = new JPanel());
-		mainPanel.add(panelForButtons = new JPanel());
-		
+//		Instantiate Asker
 		asker = new Asker();
-		asker.prepareQuestions(0);
 		
-//		Question and answerpanel. 
-		panelForQuestion.setLayout(new GridLayout(2 , 1));
-		lblQuestion = new JLabel("Här kommer frågorna. Starta med \"start\"!");
-		lblQuestion.setBorder(new EtchedBorder());
-		lblQuestion.setFont(font);
-		lblAnswer = new JLabel (secretAnswer);
-		lblAnswer.setBorder(new EtchedBorder());
-		lblAnswer.setFont(font);
-		panelForQuestion.add(lblQuestion);
-		panelForQuestion.add(lblAnswer);
-
-//		Button Panel layout
-		panelForButtons.setLayout(new FlowLayout());
-		lblStats = new JLabel(String.format("%d / %d", asker.getCorrectAnswers(), asker.getQuestionsAsked()));
-		lblStats.setFont(font);
-		btnStart = new JButton("Start");
-		btnReveal = new JButton("Reveal");
-		btnCorrect = new JButton("Correct");
-		btnWrong = new JButton("Wrong");
+		setLayout(new GridLayout(3, 1));//Three rows one column. 
 		
-		btnExit = new JButton("Exit");
-		panelForButtons.add(jcbChoose = new JComboBox(asker.getOptions()));
-		panelForButtons.add(btnStart);
-		panelForButtons.add(btnReveal); btnReveal.setEnabled(false);
-		panelForButtons.add(btnCorrect);
-		panelForButtons.add(btnWrong);
-		panelForButtons.add(lblStats);
-		panelForButtons.add(btnExit);
+//		First panel (for first "row" in gridlayout).
+		panelOne = new JPanel();
+		lblCorrect = new JLabel();	lblAsked = new JLabel();
+		updateScore();
+		lblCorrect.setFont(fontL);lblAsked.setFont(fontL);
 		
-//		Addactions
-		jcbChoose.addActionListener(l);
-		btnReveal.addActionListener(l);
-		btnStart.addActionListener(l);
-		btnCorrect.addActionListener(l);
-		btnWrong.addActionListener(l);
-		btnExit.addActionListener(l);
+		panelOne.add(lblCorrect);
+		panelOne.add(lblAsked);
 		
+//		Second panel (for second "row" in gridlayout).
+		panelTwo = new JPanel();
+		txaQandA = new JTextArea(4,60);
+		txaQandA.setText("Choose a topic to begin");
+		txaQandA.setFont(fontS);
+		panelTwo.add(txaQandA);
+		
+//		Set textarea to automatically do linebreaks. 
+		txaQandA.setLineWrap(true); //Line break lines in string
+		txaQandA.setWrapStyleWord(true); //Do linebreak with whole world. 
+		
+		
+		
+//		Third panel (for second "row" in gridlayout).
+		panelThree = new JPanel();
+		panelThree.add(jcbChoose = new JComboBox(asker.getOptions()));
+		panelThree.add(btnReveal = new JButton("Reveal"));
+		panelThree.add(btnCorrect = new JButton("Correct"));
+		panelThree.add(btnWrong = new JButton("Wrong"));
+		panelThree.add(btnExit = new JButton("Exit"));
+		
+//		Add listeners
+		btnCorrect.addActionListener(e -> correctAnswer());
+		btnWrong.addActionListener(e -> wrongAnswer());
+		btnExit.addActionListener( e -> endProgram());
+		btnReveal.addActionListener(e -> revealAnswer());
+		jcbChoose.addActionListener(e -> startNewRound());
+		
+//		Set up buttons (enabled not enabled)
+		btnCorrect.setEnabled(false);
+		btnWrong.setEnabled(false);
+		btnReveal.setEnabled(false);
+		
+//		Add panels to frame;
+		add(panelOne); add(panelTwo); add(panelThree);
+		
+		
+//		Pack and set visible. 
 		pack();
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-	
+		
+		
 	}
 	
-	ActionListener l = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			if (e.getSource() == btnReveal) {
-				lblAnswer.setText(correspondingAnswer);
-				btnCorrect.setEnabled(true);
-				btnWrong.setEnabled(true);
-				btnReveal.setEnabled(false);
-			} else if (e.getSource() == btnStart) {
-				btnStart.setEnabled(false);
-				asker.resetCorrectAnswers();
-				asker.resetQuestionsAsked();
-				getNewQuestion();
-			} else if (e.getSource() == btnCorrect) {
-				asker.removeQuestion(lblQuestion.getText());
-				upDateScore();
-				getNewQuestion();
-			} else if (e.getSource() == btnWrong) {
-				upDateScore();
-				getNewQuestion();
-			} else if (e.getSource() == btnExit) {
-				System.exit(0);
-			} else if (e.getSource() == jcbChoose) {
-				btnStart.setEnabled(true);
-				asker.prepareQuestions(jcbChoose.getSelectedIndex());
-			}
-			
-			
-			
-		}
+	
+//	The user has chosen a subject in the choose menu.
+	public void startNewRound () {
 		
-	};
-	
-	
-	public void getNewQuestion () {
-//		Method to get a new question (and answer).
-		String question = asker.getQuestion();
+		
+//		Set the questions. 
+		asker.prepareQuestions(jcbChoose.getSelectedIndex());
+		
+//		Present first question in window. 
+		getNextQuestion();
+		
+//		Reset score;
+		asker.resetCorrectAnswers();
+		asker.resetQuestionsAsked();
+		
+//		Enable revealbutton
 		btnReveal.setEnabled(true);
+		
+
+		
+		
+	}
+	
+	public void correctAnswer () {
+		
+		asker.removeQuestion();
+//		All else is the same procedures as with wrong answers
+		wrongAnswer();
+		
+		
+		
+	}
+	
+	public void revealAnswer () {
+		
+		String question = txaQandA.getText();
+		txaQandA.append("\n----------------------------------------------\n");
+		txaQandA.append(asker.getAnswer(question));
+		
+		btnCorrect.setEnabled(true);
+		btnWrong.setEnabled(true);
+		btnReveal.setEnabled(false);
+		
+		updateScore();
+		
+		
+		
+	}
+	
+	public void wrongAnswer () {
+		
+		getNextQuestion();
 		btnCorrect.setEnabled(false);
 		btnWrong.setEnabled(false);
+		updateScore();
 		
-		if (question != null) { //No more questions
-			correspondingAnswer = asker.getAnswer(question);
-			lblQuestion.setText(question);
-		} else {
-			lblQuestion.setText("Frågorna är slut.");
+		
+	}
+	
+	private void updateScore () {
+		
+		lblCorrect.setText(String.format("Correct: %d", asker.getCorrectAnswers()));
+		lblAsked.setText(String.format("Asked: %d", asker.getQuestionsAsked()));
+		
+	}
+	
+	private void endProgram ( ) {
+		
+		int confirm = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Quit?", JOptionPane.OK_CANCEL_OPTION);
+		
+		if (confirm == 0 ) {
+			System.exit(0);
 		}
-		lblAnswer.setText(secretAnswer); //To signify the answer is hidden.
-
 		
 	}
 	
-	public void upDateScore() {
-		lblStats.setText(String.format("%d / %d", asker.getCorrectAnswers(), asker.getQuestionsAsked()));
+	private void getNextQuestion() {
+		
+		String nextQuestion = asker.getQuestion();
+		
+		if (nextQuestion != null) {
+			txaQandA.setText(nextQuestion);
+			btnReveal.setEnabled(true);
+		} else {
+			txaQandA.setText("End of questions\nAnd the world?");
+			btnReveal.setEnabled(false);
+		}
+		
+		
 	}
-	
+ 	
 
-	
 
 }
