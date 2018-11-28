@@ -16,6 +16,7 @@ public class Asker {
 	private String filePath = "C:\\Users\\ceder\\Documents\\Yrgo filer\\Programfiler\\Questions\\";
 	private String [] file;
 	private String [] options;
+	private String lastQuestionAsked;
 	
 //	Counters
 	private int questionsAsked = 0;
@@ -121,7 +122,8 @@ public class Asker {
 		
 		if (!questions.isEmpty()) {
 			Random random = new Random();
-			return questions.get(random.nextInt(questions.size()));
+			lastQuestionAsked = questions.get(random.nextInt(questions.size()));
+			return lastQuestionAsked;
 		}
 		
 		return null;
@@ -133,11 +135,10 @@ public class Asker {
 		
 	}
 	
-	public void removeQuestion (String question) {
+	public void removeQuestion () {
 		
 		correctAnswers++; //Questions are only removed if answered correctly
-		
-		questions.remove(question);
+		questions.remove(lastQuestionAsked);
 		
 	}
 	
