@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -21,17 +22,18 @@ public class Asker {
 //	Counters
 	private int questionsAsked = 0;
 	private int correctAnswers = 0;
+	private int counter = 0; //This counter is only used to mark problems while reading a questionfile. 
 
 	
 //	Konstruktor
-	public Asker() {
+	public Asker() throws FileNotFoundException {
 		
 		createMenu();
 			
 	}
 	
 	
-	public void prepareQuestions (int index) {
+	public void prepareQuestions (int index) throws NoSuchElementException {
 		
 		questionsAndAnswers = new HashMap<>();
 		questions = new ArrayList<>();
@@ -40,19 +42,16 @@ public class Asker {
 		
 	}
 	
-	public void createMenu () {
+	public void createMenu () throws FileNotFoundException {
 //		This method reads the text file and creates menu to allow for user to add subject outside IDE.
 		Scanner fileScanner = null;
 		List<String> tempMenu = new ArrayList<>(); 		//intermediary storage of files
 		List<String> tempFilename = new ArrayList<>();	//intermediary storage of files
 		
 		
-		try {
-			fileScanner = new Scanner(new File(filePath + "menuoptions.txt"), "UTF-8");
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-			return;
-		}
+		fileScanner = new Scanner(new File(filePath + "menuoptions.txt"), "UTF-8");
+
+
 		
 		Scanner finder = null;
 		 
@@ -77,10 +76,9 @@ public class Asker {
 	}
 	
 	
-	private void readFile(int indexNo) {
+	private void readFile(int indexNo) throws NoSuchElementException {
 		
 //		The method read questions and answers from a textfile
-		int counter=0;
 		Scanner fileScanner = null;
 		
 		try {
@@ -95,7 +93,7 @@ public class Asker {
 		while (fileScanner.hasNextLine()) {
 			String row = fileScanner.nextLine();
 			finder = new Scanner(row).useDelimiter(":");
-			System.out.println(++counter); //Används vi inläsningsfel
+			++counter;
 			questionsAndAnswers.put(finder.next(), finder.next());
 			
 			
@@ -160,6 +158,10 @@ public class Asker {
 	
 	public String [] getOptions () {
 		return options;
+	}
+	
+	public int getCounter() {
+		return counter;
 	}
 	
 

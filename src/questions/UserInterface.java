@@ -2,6 +2,8 @@ package questions;
 
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -43,7 +45,14 @@ public class UserInterface extends JFrame {
 	public UserInterface () {
 		
 //		Instantiate Asker
-		asker = new Asker();
+		try {
+			asker = new Asker();
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, "Couldn't find menuoptions.txt. Please create a file called \"menuoptions.txt\".\n "
+					+ "In the file please place items according to \"<your_chosen_name>:nameoffile.txt\". "
+					+ "Create menufile and restart program.");
+		} 
+		
 		
 		setLayout(new GridLayout(3, 1));//Three rows one column. 
 		
@@ -58,7 +67,7 @@ public class UserInterface extends JFrame {
 		
 //		Second panel (for second "row" in gridlayout).
 		panelTwo = new JPanel();
-		txaQandA = new JTextArea(4,60);
+		txaQandA = new JTextArea(6,60);
 		txaQandA.setText("Choose a topic to begin");
 		txaQandA.setFont(fontS);
 		panelTwo.add(txaQandA);
@@ -78,11 +87,11 @@ public class UserInterface extends JFrame {
 		panelThree.add(btnExit = new JButton("Exit"));
 		
 //		Add listeners
-		btnCorrect.addActionListener(e -> correctAnswer());
-		btnWrong.addActionListener(e -> wrongAnswer());
-		btnExit.addActionListener( e -> endProgram());
-		btnReveal.addActionListener(e -> revealAnswer());
-		jcbChoose.addActionListener(e -> startNewRound());
+		btnCorrect.addActionListener(f -> correctAnswer());
+		btnWrong.addActionListener(f -> wrongAnswer());
+		btnExit.addActionListener( f -> endProgram());
+		btnReveal.addActionListener(f -> revealAnswer());
+		jcbChoose.addActionListener(f -> startNewRound());
 		
 //		Set up buttons (enabled not enabled)
 		btnCorrect.setEnabled(false);
@@ -99,6 +108,8 @@ public class UserInterface extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		
+		
+		
 	}
 	
 	
@@ -107,10 +118,18 @@ public class UserInterface extends JFrame {
 		
 		
 //		Set the questions. 
-		asker.prepareQuestions(jcbChoose.getSelectedIndex());
+		try {
+			asker.prepareQuestions(jcbChoose.getSelectedIndex());
+			
+//			Present first question in window. 
+			getNextQuestion();
+			
+		} catch (NoSuchElementException nse) {
+			txaQandA.setText(String.format("There is a problem reading the requested file. This is most likely due to one, or several,"
+					+ "questions having the wrong format. Please check the file with questions. The problem should be"
+					+ " somewhere around row %d.", asker.getCounter()));
+		}
 		
-//		Present first question in window. 
-		getNextQuestion();
 		
 //		Reset score;
 		asker.resetCorrectAnswers();
