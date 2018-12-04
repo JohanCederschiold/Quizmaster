@@ -27,7 +27,7 @@ public class UserInterface extends JFrame {
 	private JButton btnCorrect;
 	private JButton btnWrong;
 	private JButton btnExit;
-	private JComboBox jcbChoose;
+	private JComboBox <String> jcbChoose;
 	
 //	Panels
 	private JPanel panelOne;
