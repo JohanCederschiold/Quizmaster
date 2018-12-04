@@ -1,5 +1,6 @@
 package questions;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;
@@ -54,7 +55,7 @@ public class UserInterface extends JFrame {
 		} 
 		
 		
-		setLayout(new GridLayout(3, 1));//Three rows one column. 
+		setLayout(new BorderLayout());//Three rows one column. 
 		
 //		First panel (for first "row" in gridlayout).
 		panelOne = new JPanel();
@@ -99,7 +100,7 @@ public class UserInterface extends JFrame {
 		btnReveal.setEnabled(false);
 		
 //		Add panels to frame;
-		add(panelOne); add(panelTwo); add(panelThree);
+		add(panelOne, BorderLayout.NORTH); add(panelTwo, BorderLayout.CENTER); add(panelThree, BorderLayout.SOUTH);
 		
 		
 //		Pack and set visible. 
